@@ -1,0 +1,360 @@
+==========Day 1=========================
+MongoDbs: 
+   > database best used for unstructured data.
+   > it can used for structured data as well .
+
+   All sql database stores Untructured data only where some piece of memory get wasted . 
+ 
+   Untructured data (some piece of memory get wasted).
+   -----------------
+   RollNo | Hindi  | English | computer|
+   01     |  80    |  ----   |  ----   |
+   02     | ----   |   70    |  ----   | 
+   03     |  70    |  ----   |   70    |
+
+ Structured data  .
+ Acc.No | Data | Amount withdral | Balance |
+ 00001 |2/2/23|     5000        | 10000   |
+ 00002 |2/2/23|     5000        | 13000   |
+
+MongoDbs uses JSON for storing the data.
+( no piece of memory get wasted).
+
+[
+
+    {
+    "RollNo": 01 ,
+    "Hindi':  80 
+    },
+    {
+    "RollNo": 01 ,
+    "English':70    
+    },
+    {
+    "RollNo": 03 ,
+    "Hindi':  70 ,  
+    "computer":70 
+    }
+
+]
+  
+  Sql          vs          MongoDbs  |
+> Database           > Database      |
+> Table              > Collection    |
+> Row                > documents     |
+> Select             > Find          |
+    (Insert , Find for getting data) |
+> update             > update        |
+> delete             > remove        |
+> joins              > lookups       |
+> multiple-tables    > nested collection|
+> avoid repeatation  > no issue with repeatation|
+
+# Setups windows:
+> create one folder on c drive with name data .
+> c:/data
+> Inside the data create folderwith name db.
+> c:/data/db
+
+============================================================
+5v solution:
+volumes: it ables to store huge amount of data.
+variety: it ables to handles all types of data.
+velocity:it is capables to handling very high incoming rates of data.
+values:👉 value should be generated.
+       👉 value should be generated on times.
+veracity: it represents data inconsistencies.
+👉how to find data inconsistant?
+👉after finding what to do or fix that? 
+
+MongoDbs:
+      >  stores all application datas.
+      >  schma diagnostics.
+      >  handling big data requirements.
+      >  long term storage.
+
+====================weak 1===============================
+scheamas: a set of rules that defines how the data is organized .
+MongoDB is open source because its source code is freely available, allowing users to customize the database to their needs.
+vscaling:add more hdware , rom , cpu etc to existing server.
+hscaling:adding more nodes to databse.\
+
+
+MongoD:main db process.
+Mongo exe./ Mongosh : a cli to interect with MongoD server. 
+
+set the environment variable of mongo bin & shell bin.
+>C:\Program Files\MongoDB\Server\7.0\bin
+>C:\Program Files\MongoDB\Server\mongosh-2.3.2-win32-x64\mongosh-2.3.2-win32-x64\bin
+
+>>>starting the database :
+>> setting the path(through cmd) where to create the mongodb file and the port no.
+    >mongod --dbpath C:\data\db\ --port 27017
+
+>>>starting the mongosh :(in another cmd):
+    >mongosh
+    >use new_learner
+
+switched to db new_learner
+ (db name is now switched default to new_learner)
+
+>db is the pointer to the current database.
+    new_learner> db;
+    new_learner
+    new_learner>
+
+>>creating collection:
+
+>inserting the documents.//
+db.students.insertOne({"name":"Rana"});
+
+    new_learner> db.students.insertOne({"Name":"Rana"});
+    {
+      acknowledged: true,
+      insertedId: ObjectId('671365769debf60fb786b01d')
+    }
+    new_learner>
+
+>>>retriving this documents.
+db.students.find();
+      new_learner> db.students.find();
+      [ { _id: ObjectId('671365769debf60fb786b01d'), Name: 'Rana' } ]
+      new_learner>
+
+
+              -----------------------------
+  //starting the database & setting the path and port no//
+  steps 1 : >mongod --dbpath C:\data\db\ --port 27017 
+  steps 2 : >mongosh  //starting the mongosh//
+  steps 3 : >use new_learner //creating new database.//
+  steps 4 : >new_learner> db;  //pointer to the current database.//
+  steps 5 : >new_learner>db.students.insertOne ({"name":"Rana"});  //inserting the documents.//
+  steps 6 : >db.students.find();  //retriving this documents.//
+            -------------------------------
+> Acid properties.
+> Nosql Base " " .
+> Rf-3 -when any data inseted it duplicate the data in two nodes .
+> cap theorms.
+> In a destributed database consistency and avlability are inversly proportional  i.e if want more avlability then less consistency  if want more consistency then less avlability.
+
+
+> two different databases are maintained in order to provide high consistency : one for high consistency (rdbms) one for low consistency (nosql)
+
+=========================weak2============================
+> mongodb provides all three CAP properties if all the  nodes are available. 
+> mongodb is more consistent than available if nodes goes down.
+
+mongodb:
+> capables of handling big data.
+> high performance and high avlability.
+> works on the concepts of collection of documents.
+
+Reasons why MongoDB : 
+ > speed to develops.
+ > speed to scale .
+ > speed to insight.
+ > run anywhere.
+=>db < collection >  documents .
+
+JSON :
+> lighteweight, text-based ,open standerdd format.
+> syntax for storing and exchanging data.
+> tex written with javascript Object notation.
+
+atlas: cloud tool to manage cloud instances.
+compass : desktop tool to connect mongodb instance.
+        ------------------------------------
+👉 use firstdb:
+    => this will create db firstdb.
+
+>>> create collections by two ways: 
+👉 db.students.insertOne ({ "name" : "Rana", "id" : 001, "age" :21,})
+    => this is going to create collection students with one documents in it.
+    
+        new_learner> db.students.find();
+        [
+            { _id: ObjectId('671365769debf60fb786b01d'), Name: 'Rana' },
+            {
+                _id: ObjectId('6713d2b5d6ec272dad86b01d'),
+                name: 'Rana',
+                ids: 1,
+                age: 21
+            }
+        ]
+ => to add more values to it : 
+        db.students.insertOne({"name":"Raka","ids":003,"age":21})
+        {
+            acknowledged: true,
+            insertedId: ObjectId('6713d85dd6ec272dad86b021')
+        }
+  => to check values in it :   
+       db.students.find();
+        [
+            { _id: ObjectId('671365769debf60fb786b01d'), Name: 'Rana' },
+            {
+                _id: ObjectId('6713d2b5d6ec272dad86b01d'),
+                name: 'Rana',
+                ids: 1,
+                age: 21
+            },
+            {
+                _id: ObjectId('6713d85dd6ec272dad86b021'),
+                name: 'Raka',
+                ids: 3,
+                age: 21
+            }
+        ]
+
+👉 db.createCollection("teachers")
+    => this is going to create collection teachers specifically.
+
+db.teachers.insertMany([
+    { "name" : "Rana",
+     "sub" :"React"
+    },
+     { "name" : "Raka",
+     "sub" :"Angular"
+    },  
+     { "name" : "Teena",
+     "sub" :"Nodes"
+    },
+])
+    => this will create multiple documents in teachers collection .here passing an array of JSON documents .
+
+ 👉Note: db.teachers.find().pretty() or db.teachers.find() a same ony but this will show formatedss text view.
+ 👉db.teachers.find() 
+ => this will show all the documents present in the teachers collection.
+         [
+            {
+                _id: ObjectId('6713d640d6ec272dad86b01e'),
+                name: 'Rana',
+                sub: 'React'
+            },
+            {
+                _id: ObjectId('6713d640d6ec272dad86b01f'),
+                name: 'Raka',
+                sub: 'Angular'
+            },
+            {
+                _id: ObjectId('6713d640d6ec272dad86b020'),
+                name: 'Teena',
+                sub: 'Nodes'
+            }
+        ]
+=> to add more values to it : 
+      db.teachers.insertMany(
+        [ 
+            { "name": "Rana", 
+            "sub": "React" }, 
+            { "name": "Raka",
+            "sub": "Angular" }, 
+            { "name": "Teena", 
+            "sub": "Nodes" },
+            {"name":"Reena",
+            "sub":"Css"}
+         ]
+         ) 
+ 
+  => to check values in it :   
+ db.teachers.find()
+    [
+        {
+            _id: ObjectId('6713d640d6ec272dad86b01e'),
+            name: 'Rana',
+            sub: 'React'
+        },
+        {
+            _id: ObjectId('6713d640d6ec272dad86b01f'),
+            name: 'Raka',
+            sub: 'Angular'
+        },
+        {
+            _id: ObjectId('6713d640d6ec272dad86b020'),
+            name: 'Teena',
+            sub: 'Nodes'
+        },
+        {
+            _id: ObjectId('6713da46d6ec272dad86b022'),
+            name: 'Rana',
+            sub: 'React'
+        },
+        {
+            _id: ObjectId('6713da46d6ec272dad86b023'),
+            name: 'Raka',
+            sub: 'Angular'
+        },
+        {
+            _id: ObjectId('6713da46d6ec272dad86b024'),
+            name: 'Teena',
+            sub: 'Nodes'
+        },
+        {
+            _id: ObjectId('6713da46d6ec272dad86b025'),
+            name: 'Reena',
+            sub: 'Css'
+        }
+    ]
+
+ =>find the documentsss with the key value:
+        db.teachers.find({name:"Raka"})
+        [
+            {
+                _id: ObjectId('67262344269c9925d286b01d'),
+                name: 'Raka',
+                sub: 'Angular'
+            }
+        ]
+
+👉Note:caped collection set the limits of documents that can be saved  if it exceeds the limits it starts replacing the oldest documents.
+
+## db.createCollection("caps", {capped:true,size :10000})
+    # this is going create capped collection of 10000 bytes. Capped collection has to created explicitly
+
+👉Inserting the documents:                                db.caps1.insertMany(
+    [
+        {_ids:01,name:"one",age:23}, {_ids:02,name:"two",age:25}, {_ids:03,name:"three"age:25},{_ids:04,name:"four",age:27
+        }       ]
+)
+👉  => to check values in it :  
+  db.caps1.find()
+[
+  {
+    _id: ObjectId('672633a29f09c1762286b01d'),
+    _ids: 1,
+    name: 'one',
+    age: 23
+  },
+  {
+    _id: ObjectId('672633a29f09c1762286b01e'),
+    _ids: 2,
+    name: 'two',
+    age: 25
+  },
+  {
+    _id: ObjectId('672633a29f09c1762286b01f'),
+    _ids: 3,
+    name: 'three',
+    age: 25
+  },
+  {
+    _id: ObjectId('672633a29f09c1762286b020'),
+    _ids: 4,
+    name: 'four',
+    age: 27
+  },
+  {
+    _id: ObjectId('672633a29f09c1762286b020'),
+    _ids: 4,
+    name: 'five',
+    age: 27
+  },
+  {
+    _id: ObjectId('672633a29f09c1762286b020'),
+    _ids: 4,
+    name: 'sixth',
+    age: 27
+  }
+]
+ =============================================
+ 
+
